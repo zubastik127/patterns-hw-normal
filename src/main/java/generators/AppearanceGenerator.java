@@ -1,7 +1,6 @@
 package generators;
 
 import person.appearance.Appearance;
-import person.appearance.EyesColor;
 import person.appearance.hair.Hair;
 import person.appearance.hair.LongHair;
 import person.appearance.hair.NoHair;
@@ -25,23 +24,12 @@ public class AppearanceGenerator implements Generator<Appearance> {
     public final void generateParams(final int code) {
         final int i = code % 100 / 10;
         switch (i / 2) {
-            case 0:
-                eyes = EyesColor.BLUE;
-                break;
-            case 1:
-                eyes = EyesColor.GREEN;
-                break;
-            case 2:
-                eyes = EyesColor.BROWN;
-                break;
-            case 3:
-                eyes = EyesColor.GRAY;
-                break;
-            case 4:
-                eyes = EyesColor.DIFF;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + i / 2);
+            case 0 -> eyes = "голубые";
+            case 1 -> eyes = "зелёные";
+            case 2 -> eyes = "карие";
+            case 3 -> eyes = "серые";
+            case 4 -> eyes = "разные";
+            default -> throw new IllegalStateException("Unexpected value: " + i / 2);
         }
         hairLength = i;
 
@@ -69,6 +57,7 @@ public class AppearanceGenerator implements Generator<Appearance> {
         } else {
             hair = new NoHair();
         }
+
         return new Appearance(eyes, hair);
     }
 }

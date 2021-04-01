@@ -6,7 +6,7 @@ public class Controller {
     private final InputProcessor processor = new InputProcessor();
 
     public final void launch() {
-        final Scanner scanner = new Scanner(System.in, Charset.defaultCharset());
+        final Scanner scanner = new Scanner(System.in, Charset.defaultCharset()); //Charset - кодировка
         String input;
         while (true) {
             System.out.println("Введите 4 цифры от 0 до 9 без пробелов (Q для выхода)");

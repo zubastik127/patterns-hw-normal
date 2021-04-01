@@ -1,9 +1,10 @@
 package generators;
 
-import static utils.FileReader.getLinesFromFile;
+import person.Fio;
+import utils.FileReader;
 import static utils.MyMath.getDigitsSum;
 
-public class FioGenerator {
+public class FioGenerator implements Generator<Fio> {
 
     private String lastName;
     private String firstName;
@@ -17,36 +18,32 @@ public class FioGenerator {
      *
      * @param code код для генерации
      */
+
+    @Override
     public final void generateParams(final int code) {
-        final int lastNameIndex = getDigitsSum(code);
-        final String sex = (lastNameIndex % 2 == 0) ? "f" : "m";
-        setLastNameFromFile(lastNameIndex, sex);
+        //final int lastNameIndex = getDigitsSum(code); - можно удалить переменную
+        final String sex = (getDigitsSum(code) % 2 == 0) ? "f" : "m";
+
+        setLastNameFromFile(getDigitsSum(code), sex);
         setFirstNameFromFile(getDigitsSum(code / 100), sex);
         setMiddleNameFromFile(getDigitsSum(code % 100), sex);
     }
 
-    public final String getLastName() {
-        return lastName;
-    }
-
-    public final String getFirstName() {
-        return firstName;
-    }
-
-    public final String getMiddleName() {
-        return middleName;
-    }
-
     private void setLastNameFromFile(final int i, final String sex) {
-        lastName = getLinesFromFile("lastNames_" + sex).get(i);
+        lastName = FileReader.getInstance().getLinesFromFile("lastNames_" + sex).get(i);
     }
 
     private void setFirstNameFromFile(final int i, final String sex) {
-        firstName = getLinesFromFile("names_" + sex).get(i);
+        firstName = FileReader.getInstance().getLinesFromFile("names_" + sex).get(i);
     }
 
     private void setMiddleNameFromFile(final int i, final String sex) {
-        middleName = getLinesFromFile("middleNames_" + sex).get(i);
+        middleName = FileReader.getInstance().getLinesFromFile("middleNames_" + sex).get(i);
+    }
+
+    @Override
+    public final Fio buildResponse() {
+        return new Fio(lastName, firstName, middleName);
     }
 }
 
