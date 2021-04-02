@@ -1,11 +1,23 @@
 import java.nio.charset.Charset;
 import java.util.Scanner;
 
-public class Controller {
+public final class Controller {
+
+    private static Controller instance2;
+
+    private Controller() {
+    }
+
+    public static Controller getInstance2() {
+        if (instance2 == null) {
+            instance2 = new Controller();
+        }
+        return instance2;
+    }
 
     private final InputProcessor processor = new InputProcessor();
 
-    public final void launch() {
+    public void launch() {
         final Scanner scanner = new Scanner(System.in, Charset.defaultCharset()); //Charset - кодировка
         String input;
         while (true) {
